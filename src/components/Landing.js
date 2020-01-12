@@ -5,9 +5,16 @@ import PropTypes from 'prop-types';
 import Loader from '../components/Loader';
 import RecipeComponentList from '../components/RecipeComponentList';
 
-export const Landing = ({recipes, user}) => {
+export const Landing = props => {
+  const {recipes, user, like, dislike, likedRecipes} = props;
   return recipes.length > 0 ? (
-    <RecipeComponentList recipeList={recipes} user={user} />
+    <RecipeComponentList
+      recipeList={recipes}
+      user={user}
+      like={like}
+      dislike={dislike}
+      likedRecipes={likedRecipes}
+    />
   ) : (
     <Loader />
   );
@@ -16,6 +23,8 @@ export const Landing = ({recipes, user}) => {
 Landing.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.string,
+  like: PropTypes.func.isRequired,
+  dislike: PropTypes.func.isRequired,
 };
 
 Landing.defaultProps = {

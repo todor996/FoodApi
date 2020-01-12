@@ -3,3 +3,5 @@ export const lighter = '#f0f0f0';
 export const primary = '#00b906';
 export const secondary = '#b9e937';
 export const dark = '#424242';
+export const liked = 'liked';
+export const owned = 'owned';

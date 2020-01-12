@@ -5,3 +5,4 @@ export const GET_RECIPES_FAIL = '@recipe/getRecipesFail';
 export const GET_USER_RECIPES = '@recipe/getLikedRecipes';
 export const GET_USER_RECIPES_SUCCESS = '@recipe/getLikedRecipesSuccess';
 export const GET_USER_RECIPES_FAIL = '@recipe/getLikedRecipesFail';
+export const GET_DETAILED_RECIPE = '@recipe/getDetailed';

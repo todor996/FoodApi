@@ -1,7 +1,11 @@
 import {
   GET_RECIPES,
   GET_RECIPES_SUCCESS,
-  GET_RECIPES_FAIL, GET_USER_RECIPES, GET_USER_RECIPES_SUCCESS, GET_USER_RECIPES_FAIL,
+  GET_RECIPES_FAIL,
+  GET_USER_RECIPES,
+  GET_USER_RECIPES_SUCCESS,
+  GET_USER_RECIPES_FAIL,
+  GET_DETAILED_RECIPE,
 } from '../constants/actions';
 
 const initialState = {
@@ -9,6 +13,7 @@ const initialState = {
   loading: false,
   likedRecipes: [],
   ownedRecipes: [],
+  detailed: null,
 };
 
 export const recipeReducer = (state = initialState, action) => {
@@ -47,7 +52,6 @@ export const recipeReducer = (state = initialState, action) => {
         loading: false,
         likedRecipes: payload.user.likedRecipes,
         ownedRecipes: payload.user.Recipes,
-
       };
     }
     case GET_USER_RECIPES_FAIL: {
@@ -56,6 +60,13 @@ export const recipeReducer = (state = initialState, action) => {
         likedRecipes: [],
         ownedRecipes: [],
         loading: false,
+      };
+    }
+    case GET_DETAILED_RECIPE: {
+      const {payload} = action;
+      return {
+        ...state,
+        detailed: payload,
       };
     }
     default:

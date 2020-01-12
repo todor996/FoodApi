@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import {
   getRecipes as getRecipesAction,
   getUserRecipes as getUserRecipesAction,
+  likeRecipe as likeRecipeAction,
+  dislikeRecipe as dislikeRecipeAction,
 } from '../actions/RecipeActions';
+
 import {connect} from 'react-redux';
 import {
   Dimensions,
@@ -14,7 +17,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {lighter, primary} from '../constants/consts';
+import {liked, owned, primary} from '../constants/consts';
 
 class Profile extends Component {
   constructor(props) {
@@ -28,31 +31,45 @@ class Profile extends Component {
   }
 
   handleLikedRecipesPress = () => {
-    const {recipes} = this.props;
-    this.setState({showRecipes: recipes.likedRecipes});
+    this.setState({show: liked});
   };
   handleOwnedRecipesPress = () => {
-    const {recipes} = this.props;
-    this.setState({showRecipes: recipes.ownedRecipes});
+    this.setState({show: owned});
   };
   render() {
-    const {auth} = this.props;
-    const {showRecipes} = this.state;
+    const {auth, likeRecipe, dislikeRecipe, recipes} = this.props;
+    const {show} = this.state;
+    const showRecipes =
+      show === liked
+        ? recipes.likedRecipes
+        : show === owned
+        ? recipes.ownedRecipes
+        : null;
     return (
       <View style={styles.wrapper}>
         <Text>Email: {auth.user.email}</Text>
         <Text>FirstName: {auth.user.firstName}</Text>
         <Text>LastName: {auth.user.lastName}</Text>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.button} onPress={this.handleLikedRecipesPress}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.handleLikedRecipesPress}>
             <Text style={styles.buttonText}>Liked</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this.handleOwnedRecipesPress}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.handleOwnedRecipesPress}>
             <Text style={styles.buttonText}>Owned</Text>
           </TouchableOpacity>
         </View>
         {showRecipes && showRecipes.length > 0 && (
-          <Landing recipes={showRecipes} user={auth.user.id} />
+          <Landing
+            likedRecipes={recipes.likedRecipes}
+            recipes={showRecipes}
+            user={auth.user.id}
+            like={likeRecipe}
+            dislike={dislikeRecipe}
+          />
         )}
         <ImageBackground
           source={require('../images/showcase.jpg')}
@@ -76,8 +93,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   row: {
-      flexDirection: 'row',
-  }  ,
+    flexDirection: 'row',
+  },
   button: {
     margin: 5,
     backgroundColor: primary,
@@ -105,6 +122,8 @@ Profile.propTypes = {
   recipes: PropTypes.shape({}),
   getRecipes: PropTypes.func.isRequired,
   getUserRecipes: PropTypes.func.isRequired,
+  likeRecipe: PropTypes.func.isRequired,
+  dislikeRecipe: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {
@@ -120,6 +139,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getRecipes: () => dispatch(getRecipesAction()),
   getUserRecipes: id => dispatch(getUserRecipesAction(id)),
+  likeRecipe: (recipeId, userId) =>
+    dispatch(likeRecipeAction(recipeId, userId)),
+  dislikeRecipe: (recipeId, userId) =>
+    dispatch(dislikeRecipeAction(recipeId, userId)),
 });
 
 export default connect(

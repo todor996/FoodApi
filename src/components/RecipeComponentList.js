@@ -2,10 +2,22 @@ import RecipeComponent from './RecipeComponent';
 import {ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
 
-const RecipeComponentList = ({recipeList, user}) => (
+const RecipeComponentList = ({
+  recipeList,
+  user,
+  like,
+  dislike,
+  likedRecipes,
+}) => (
   <ScrollView style={[styles.scrollView]}>
     {recipeList.map(recipe => (
-      <RecipeComponent recipe={recipe} user={user} />
+      <RecipeComponent
+        recipe={recipe}
+        user={user}
+        like={like}
+        dislike={dislike}
+        likedRecipes={likedRecipes}
+      />
     ))}
   </ScrollView>
 );

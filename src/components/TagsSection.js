@@ -10,8 +10,8 @@ const Tags = ({recipe: {tags}}) => {
     <View style={styles.tagsSection}>
       {tags.map(tag => {
         return (
-          <Text key={tag} style={styles.tag}>
-            {tag}
+          <Text key={tag.id} style={styles.tag}>
+            {tag.name}
           </Text>
         );
       })}

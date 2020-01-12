@@ -219,7 +219,7 @@ Signup.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  signUp: payload => signUpAction(payload),
+  signUp: payload => signUpApi(payload),
 });
 
 export default connect(

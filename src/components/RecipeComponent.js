@@ -5,24 +5,42 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 import RecipeCard from './RecipeCard';
 import {light, lighter, primary} from '../constants/consts';
+import {Actions} from 'react-native-router-flux';
 
-const RecipeComponent = ({recipe, user}) => {
+const RecipeComponent = ({recipe, user, like, dislike, likedRecipes}) => {
   const loggedIn = !!user;
   const owner = recipe.UserId === user;
-  const liked = true; //todo
+  const liked = !!(
+    likedRecipes &&
+    likedRecipes.find(likedRecipe => recipe.id === likedRecipe.id)
+  );
+
+  const onPress = () => {
+    !liked ? like(recipe.id, user) : dislike(recipe.id, user);
+  };
+
+  const onClickDetailed = id => {
+    Actions.detailed({id: id});
+  };
+
   return (
     <View style={styles.recipeBulkSection}>
       <RecipeCard recipe={recipe} />
       {loggedIn && (
-        <TouchableOpacity onPress={null} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => onClickDetailed(recipe.id)}
+          style={styles.button}>
           <Text style={styles.instructions}>
             Detailed preparation instruction
           </Text>
         </TouchableOpacity>
       )}
       {loggedIn && !owner && (
-        <TouchableOpacity style={styles.likeRecipe}>
-          <FontAwesomeIcon icon={liked ? faThumbsDown : faThumbsUp} style={styles.likeThumbs} />
+        <TouchableOpacity style={styles.likeRecipe} onPress={onPress}>
+          <FontAwesomeIcon
+            icon={liked ? faThumbsDown : faThumbsUp}
+            style={styles.likeThumbs}
+          />
         </TouchableOpacity>
       )}
     </View>

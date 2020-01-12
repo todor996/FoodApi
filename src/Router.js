@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import DetailedRecipe from './pages/DetailedRecipe';
 export default class Routes extends Component {
   render() {
     return (
@@ -16,7 +17,9 @@ export default class Routes extends Component {
         <Scene key="root">
           <Scene key="login" component={Login} title="Login" initial />
           <Scene key="signUp" component={Signup} title="Sign up" />
-          <Scene key="home" component={Profile} title="Dashboard" />
+          <Scene key="home" component={Dashboard} title="Dashboard" />
+          <Scene key="profile" component={Profile} title="Profile" />
+          <Scene key="detailed" component={DetailedRecipe} title="Detailed" />
         </Scene>
       </Router>
     );
