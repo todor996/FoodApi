@@ -7,7 +7,7 @@ import RecipeComponentList from '../components/RecipeComponentList';
 
 export const Landing = props => {
   const {recipes, user, like, dislike, likedRecipes} = props;
-  return recipes.length > 0 ? (
+  return recipes ? (
     <RecipeComponentList
       recipeList={recipes}
       user={user}
@@ -28,6 +28,6 @@ Landing.propTypes = {
 };
 
 Landing.defaultProps = {
-  recipes: [],
+  recipes: null,
   user: null,
 };

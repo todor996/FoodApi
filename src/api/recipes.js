@@ -38,3 +38,21 @@ export const dislikeRecipe = (recipeId, userId) => {
       console.log(e.toString());
     });
 };
+
+export const searchRecipes = options => {
+  return axios
+    .post('/recipes/search', options)
+    .then(response => response.data)
+    .catch(e => {
+      console.log(e.toString());
+    });
+};
+
+export const createRecipe = options => {
+  return axios
+    .post('/recipes', options)
+    .then(response => response.data)
+    .catch(e => {
+      console.log(e.toString());
+    });
+};

@@ -5,3 +5,5 @@ export const secondary = '#b9e937';
 export const dark = '#424242';
 export const liked = 'liked';
 export const owned = 'owned';
+export const allRecipes = 'all';
+export const search = 'search';

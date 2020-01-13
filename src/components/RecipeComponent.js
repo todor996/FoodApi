@@ -9,20 +9,19 @@ import {Actions} from 'react-native-router-flux';
 
 const RecipeComponent = ({recipe, user, like, dislike, likedRecipes}) => {
   const loggedIn = !!user;
-  const owner = recipe.UserId === user;
+  const owner = recipe.UserId === user.id;
   const liked = !!(
     likedRecipes &&
     likedRecipes.find(likedRecipe => recipe.id === likedRecipe.id)
   );
 
   const onPress = () => {
-    !liked ? like(recipe.id, user) : dislike(recipe.id, user);
+    !liked ? like(recipe.id, user.id) : dislike(recipe.id, user.id);
   };
 
   const onClickDetailed = id => {
     Actions.detailed({id: id});
   };
-
   return (
     <View style={styles.recipeBulkSection}>
       <RecipeCard recipe={recipe} />

@@ -1,7 +1,5 @@
-import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
 import {AuthService} from '../services/AuthService';
-import {AsyncStorage} from 'react-native';
 
 export const SERVER_URL = 'http://192.168.2.187:8000'; // production
 

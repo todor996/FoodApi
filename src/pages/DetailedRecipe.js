@@ -15,16 +15,12 @@ class DetailedRecipe extends Component {
     const {
       recipes: {detailed},
     } = this.props;
-    return (
-      detailed && (
-        <View style={{height: '100%'}}>
-          <RecipeCard recipe={detailed.recipe} />
-          <PreparationInstruction
-            prepInstructions={detailed.recipe.PreparationSteps}
-          />
-        </View>
-      )
-    );
+    return detailed ? (
+      <View style={{height: '100%'}}>
+        <RecipeCard recipe={detailed} />
+        <PreparationInstruction prepInstructions={detailed.PreparationSteps} />
+      </View>
+    ) : null;
   }
 }
 

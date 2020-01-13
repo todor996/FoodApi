@@ -37,7 +37,7 @@ class Login extends Component {
     const {login} = this.props;
     const {email, password} = this.state;
     login({email, password}).then(() => {
-      Actions.home();
+      Actions.dashboard();
     });
   };
 

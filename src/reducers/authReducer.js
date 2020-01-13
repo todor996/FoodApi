@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS} from '../constants/actions';
+import {LOGIN_SUCCESS, LOGOUT} from '../constants/actions';
 
 const initialState = {
   token: '',
@@ -14,6 +14,9 @@ export const authReducer = (state = initialState, action) => {
         token: payload.token,
         user: payload.user,
       };
+    }
+    case LOGOUT: {
+      return initialState;
     }
     default:
       return state;

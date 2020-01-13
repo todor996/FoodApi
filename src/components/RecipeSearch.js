@@ -7,12 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import t from 'tcomb-form-native';
-import {Actions} from 'react-native-router-flux';
 import {dark, lighter, primary} from '../constants/consts';
-import {createRecipe as createRecipeAction} from '../actions/RecipeActions';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-
 const Form = t.form.Form;
 
 const formStyles = {
@@ -44,46 +39,26 @@ const options = {
 };
 
 const Recipe = t.struct({
-  title: t.String,
-  image: t.String,
-  tags: t.String,
-  prepTime: t.Integer,
-  ingredients: t.String,
-  preparation: t.String,
-  servings: t.Integer,
-  kcal: t.Integer,
-  carbs: t.Integer,
-  fat: t.Integer,
-  protein: t.Integer,
+  query: t.String,
+  prepTime: t.maybe(t.Integer),
+  servings: t.maybe(t.Integer),
+  kcal: t.maybe(t.Integer),
+  carbs: t.maybe(t.Integer),
+  fat: t.maybe(t.Integer),
+  protein: t.maybe(t.Integer),
 });
-class CreateRecipe extends Component {
+class RecipeSearch extends Component {
   constructor(props) {
     super(props);
   }
 
   handleSubmit = () => {
-    const {auth, createRecipe} = this.props;
+    const {searchRecipes} = this.props;
     const value = this._form.getValue();
     if (value) {
-      const ingredients = value.ingredients.split(';');
-      const newRecipe = {
-        ...value,
-        tags: value.tags.split(',').map(tag => ({name: tag})),
-        preparationSteps: value.preparation.split(';').map((prep, index) => {
-          return {
-            orderNum: index,
-            preparation: prep,
-            ingredients: ingredients[index].split(',').map(ingredient => ({
-              name: ingredient,
-              price: Math.floor(Math.random() * 100),
-            })),
-          };
-        }),
-      };
-      delete newRecipe.ingredients;
-      delete newRecipe.preparation;
-      createRecipe(newRecipe, auth.user.id);
-      Actions.pop();
+      const modifiedValue = Object.entries(value).reduce((a,[k,v]) => (v ? {...a, [k]:v} : a), {})
+
+      searchRecipes(modifiedValue);
     }
   };
 
@@ -95,7 +70,7 @@ class CreateRecipe extends Component {
           <TouchableOpacity
             onPress={this.handleSubmit}
             style={styles.createRecipeButton}>
-            <Text style={styles.createButtonText}>Create recipe</Text>
+            <Text style={styles.createButtonText}>Search</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>
@@ -167,24 +142,4 @@ const styles = StyleSheet.create({
   },
 });
 
-CreateRecipe.propTypes = {
-  createRecipe: PropTypes.func.isRequired,
-  auth: PropTypes.shape({}),
-};
-
-CreateRecipe.defaultProps = {
-  auth: null,
-};
-
-const mapStateToProps = state => ({
-  auth: state.authReducer,
-});
-
-const mapDispatchToProps = dispatch => ({
-  createRecipe: (payload, userId) => dispatch(createRecipeAction(payload, userId)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreateRecipe);
+export default RecipeSearch;

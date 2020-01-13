@@ -6,6 +6,7 @@ import {
   GET_USER_RECIPES_SUCCESS,
   GET_USER_RECIPES_FAIL,
   GET_DETAILED_RECIPE,
+  SEARCH_RECIPES,
 } from '../constants/actions';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   loading: false,
   likedRecipes: [],
   ownedRecipes: [],
+  search: [],
   detailed: null,
 };
 
@@ -67,6 +69,13 @@ export const recipeReducer = (state = initialState, action) => {
       return {
         ...state,
         detailed: payload,
+      };
+    }
+    case SEARCH_RECIPES: {
+      const {payload} = action;
+      return {
+        ...state,
+        search: payload,
       };
     }
     default:

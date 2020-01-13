@@ -1,42 +1,42 @@
 import React, {Component} from 'react';
-import {Landing} from '../components/Landing';
 import PropTypes from 'prop-types';
-import {getRecipes as getRecipesAction} from '../actions/RecipeActions';
-import {connect} from 'react-redux';
+import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {allRecipes, lighter, primary} from '../constants/consts';
+import {Actions} from 'react-native-router-flux';
+import RecipeList from './RecipeList';
 
-class Dashboard extends Component {
-  componentDidMount() {
-    const {getRecipes} = this.props;
-    getRecipes();
-  }
+const Dashboard = () => {
+  const onPressAdd = () => {
+    Actions.createRecipe();
+  };
 
-  render() {
-    const {recipes, auth} = this.props;
-    return <Landing recipes={recipes.recipes} user={auth.user.id} />;
-  }
-}
-
-Dashboard.propTypes = {
-  auth: PropTypes.shape({}),
-  recipes: PropTypes.shape({}),
-  getRecipes: PropTypes.func.isRequired,
+  return (
+    <View>
+      <RecipeList show={allRecipes} />
+      <TouchableOpacity style={styles.likeRecipe} onPress={onPressAdd}>
+        <FontAwesomeIcon icon={faPlusCircle} style={styles.likeThumbs} />
+      </TouchableOpacity>
+    </View>
+  );
 };
 
-Dashboard.defaultProps = {
-  recipes: null,
-  auth: null,
-};
-
-const mapStateToProps = state => ({
-  recipes: state.recipeReducer,
-  auth: state.authReducer,
+const styles = StyleSheet.create({
+  likeRecipe: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: lighter,
+    padding: 4,
+    paddingRight: 0,
+    margin: 0,
+    width: 22,
+    borderRadius: 50,
+  },
+  likeThumbs: {
+    color: primary,
+  },
 });
 
-const mapDispatchToProps = dispatch => ({
-  getRecipes: () => dispatch(getRecipesAction()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Dashboard);
+export default Dashboard;
