@@ -27,7 +27,7 @@ export const getRecipes = () => dispatch => {
     })
     .catch(error => {
       dispatch({type: GET_RECIPES_FAIL});
-      console.error(error.toString());
+      console.log(error.toString());
     });
 };
 
@@ -39,7 +39,7 @@ export const getUserRecipes = id => dispatch => {
     })
     .catch(error => {
       dispatch({type: GET_USER_RECIPES_FAIL});
-      console.error(error.toString());
+      console.log(error.toString());
     });
 };
 
@@ -50,7 +50,7 @@ export const likeRecipe = (recipeId, userId) => dispatch => {
       dispatch(getRecipes());
     })
     .catch(error => {
-      console.error(error.toString());
+      console.log(error.toString());
     });
 };
 
@@ -61,7 +61,7 @@ export const dislikeRecipe = (recipeId, userId) => dispatch => {
       dispatch(getRecipes());
     })
     .catch(error => {
-      console.error(error.toString());
+      console.log(error.toString());
     });
 };
 
@@ -71,7 +71,7 @@ export const getDetailedRecipe = recipeId => dispatch => {
       dispatch({type: GET_DETAILED_RECIPE, payload: res.recipe});
     })
     .catch(error => {
-      console.error(error.toString());
+      console.log(error.toString());
     });
 };
 
@@ -79,7 +79,7 @@ export const searchRecipes = options => dispatch => {
   return searchRecipesApi(options)
     .then(res => dispatch({type: SEARCH_RECIPES, payload: res.recipes}))
     .catch(error => {
-      console.error(error.toString());
+      console.log(error.toString());
     });
 };
 
@@ -90,6 +90,6 @@ export const createRecipe = (options, UserId) => dispatch => {
       dispatch(getRecipes());
     })
     .catch(error => {
-      console.error(error.toString());
+      console.log(error.toString());
     });
 };

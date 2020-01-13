@@ -31,7 +31,7 @@ instance.interceptors.request.use(
   },
   (error) => {
     if (process.env.NODE_ENV === 'development') {
-      console.error(error);
+      console.log(error);
     }
     return Promise.reject(error);
   },

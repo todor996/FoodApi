@@ -9,6 +9,6 @@ export const login = ({email, password}) => dispatch => {
       await AuthService.setAuthToken(res.token);
     })
     .catch(error => {
-      console.error(error.toString());
+      console.log(error.toString());
     });
 };

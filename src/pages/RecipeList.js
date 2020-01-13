@@ -33,6 +33,7 @@ class RecipeList extends Component {
         : show === search
         ? recipes.search
         : null;
+    console.log(recipes.recipes);
     return showRecipes ? (
       <Landing
         user={auth.user}
