@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {AuthService} from '../services/AuthService';
 
-export const SERVER_URL = 'http://192.168.2.187:8000'; // production
+export const SERVER_URL = 'http://192.168.100.58:8000'; // production
 
 export const API_URL = `${SERVER_URL}/api/`;
 const instance = axios.create({

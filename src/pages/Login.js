@@ -37,7 +37,16 @@ class Login extends Component {
     const {login} = this.props;
     const {email, password} = this.state;
     login({email, password}).then(() => {
-      Actions.dashboard();
+      const {auth} = this.props;
+      console.log(auth);
+      if (auth && auth.token) {
+        Actions.dashboard();
+        return;
+      }
+      this.setState({error: 'Invalid login'});
+      setTimeout(() => {
+        this.setState({error: ''});
+      }, 3000);
     });
   };
 
@@ -175,7 +184,7 @@ const styles = StyleSheet.create({
   },
   signupButton: {
     color: dark,
-  }
+  },
 });
 
 Login.propTypes = {
@@ -183,12 +192,15 @@ Login.propTypes = {
 };
 
 Login.defaultProps = {};
+const mapStateToProps = state => ({
+  auth: state.authReducer,
+});
 
 const mapDispatchToProps = dispatch => ({
   login: payload => dispatch(loginAction(payload)),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Login);

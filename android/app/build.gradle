@@ -71,7 +71,8 @@ import com.android.build.OutputFile
  *   nodeExecutableAndArgs: ["node"],
  *
  *   // supply additional arguments to the packager
- *   extraPackagerArgs: []
+ *   extraPackagerArgs: [],
+    bundleInDebug: true ,
  * ]
  */
 

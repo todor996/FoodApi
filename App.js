@@ -7,6 +7,8 @@ import Router from './src/Router';
 
 export default class App extends Component {
   render() {
+    console.disableYellowBox = true;
+
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#002f6c" barStyle="light-content" />

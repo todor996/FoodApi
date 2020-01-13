@@ -7,7 +7,7 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
+  TouchableOpacity, ScrollView,
 } from 'react-native';
 import {liked, owned, primary} from '../constants/consts';
 import RecipeList from './RecipeList';
@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
   wrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    height: '100%',
     flexDirection: 'column',
   },
   row: {
